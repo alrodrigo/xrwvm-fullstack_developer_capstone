@@ -1,0 +1,159 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <style>
+    .contact-container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #f8f9fa;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .contact-item {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      border-left: 4px solid darkturquoise;
+      transition: transform 0.2s;
+    }
+    .contact-item:hover {
+      transform: translateX(5px);
+    }
+    .contact-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      color: darkturquoise;
+    }
+    .contact-label {
+      font-weight: bold;
+      color: #34495e;
+      font-size: 18px;
+    }
+    .contact-detail {
+      color: #7f8c8d;
+      margin-top: 5px;
+    }
+    .business-hours {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+    .hours-title {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    .hours-list {
+      list-style: none;
+      padding: 0;
+    }
+    .hours-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #ecf0f1;
+      display: flex;
+      justify-content: space-between;
+    }
+    .hours-list li:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+    <div class="container-fluid">
+      <h2 style="padding-right: 5%;">Dealerships</h2>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: larger;" href="/about">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" style="font-size: larger;" href="/contact">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="contact-container">
+    <div class="contact-header">
+      <h1>Contact Us</h1>
+      <p>We're here to help! Reach out to us through any of the following channels.</p>
+    </div>
+    
+    <div class="contact-info">
+      <div class="contact-item">
+        <span class="contact-icon">📍</span>
+        <div style="display: inline-block; vertical-align: top;">
+          <div class="contact-label">Address</div>
+          <div class="contact-detail">123 Automotive Avenue<br>Detroit, MI 48201<br>United States</div>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">📞</span>
+        <div style="display: inline-block; vertical-align: top;">
+          <div class="contact-label">Phone</div>
+          <div class="contact-detail">Main: (555) 123-4567<br>Sales: (555) 123-4568<br>Service: (555) 123-4569</div>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">✉️</span>
+        <div style="display: inline-block; vertical-align: top;">
+          <div class="contact-label">Email</div>
+          <div class="contact-detail">info@bestcars.com<br>sales@bestcars.com<br>support@bestcars.com</div>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <span class="contact-icon">🌐</span>
+        <div style="display: inline-block; vertical-align: top;">
+          <div class="contact-label">Social Media</div>
+          <div class="contact-detail">
+            Facebook: @BestCarsDealership<br>
+            Twitter: @BestCarsNA<br>
+            Instagram: @bestcars_dealership
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="business-hours">
+      <div class="hours-title">Business Hours</div>
+      <ul class="hours-list">
+        <li><span>Monday - Friday</span><span>9:00 AM - 8:00 PM</span></li>
+        <li><span>Saturday</span><span>10:00 AM - 6:00 PM</span></li>
+        <li><span>Sunday</span><span>12:00 PM - 5:00 PM</span></li>
+      </ul>
+    </div>
+    
+    <div style="text-align: center; margin-top: 30px; padding: 20px; background-color: #e8f8f5; border-radius: 8px;">
+      <h3 style="color: #16a085; margin-bottom: 10px;">Visit Our Showroom!</h3>
+      <p style="color: #555;">Come see our extensive collection of domestic and imported vehicles. Our friendly staff is ready to assist you in finding your perfect car!</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
