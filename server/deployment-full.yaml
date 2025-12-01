@@ -35,14 +35,11 @@ spec:
           value: "dealership"
         securityContext:
           allowPrivilegeEscalation: false
-          runAsNonRoot: false
+          runAsNonRoot: true
+          runAsUser: 999
           capabilities:
             drop:
             - ALL
-            add:
-            - CHOWN
-            - SETUID
-            - SETGID
           seccompProfile:
             type: RuntimeDefault
       # Node.js Backend
