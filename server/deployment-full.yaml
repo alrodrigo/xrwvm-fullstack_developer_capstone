@@ -1,0 +1,111 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: dealership
+  name: dealership
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: dealership
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: dealership
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+      # MongoDB
+      - name: mongodb
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 999
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      # Node.js Backend
+      - name: nodebackend
+        image: us.icr.io/${SN_ICR_NAMESPACE}/nodebackend:latest
+        ports:
+        - containerPort: 3030
+          protocol: TCP
+        env:
+        - name: MONGODB_URL
+          value: "mongodb://localhost:27017"
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      # Django App
+      - name: dealership
+        image: us.icr.io/${SN_ICR_NAMESPACE}/dealership:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8000
+          protocol: TCP
+        env:
+        - name: backend_url
+          value: "http://localhost:3030"
+        - name: sentiment_analyzer_url
+          value: "http://localhost:5000/"
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      # Sentiment Analyzer
+      - name: sentiment
+        image: us.icr.io/${SN_ICR_NAMESPACE}/sentiment:latest
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dealership
+spec:
+  type: NodePort
+  selector:
+    run: dealership
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
