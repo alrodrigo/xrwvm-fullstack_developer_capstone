@@ -1,3 +1,12 @@
+# Stage 1: Build React frontend
+FROM node:18-slim AS frontend-build
+WORKDIR /frontend
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# Stage 2: Python backend with built frontend
 FROM python:3.12.0-slim-bookworm
 ENV PYTHONBUFFERED 1
 ENV PYTHONWRITEBYTECODE 1
@@ -9,6 +18,8 @@ COPY requirements.txt $APP
 RUN pip3 install -r requirements.txt
 # Copy the rest of the files
 COPY . $APP
+# Copy the built React frontend from stage 1
+COPY --from=frontend-build /frontend/build $APP/frontend/build
 # Create a non-root user
 RUN groupadd -r appuser && useradd -r -g appuser -u 1000 appuser
 # Set ownership of the app directory
