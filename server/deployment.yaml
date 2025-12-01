@@ -19,6 +19,11 @@ spec:
       labels:
         run: dealership
     spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
       containers:
       - image: us.icr.io/${SN_ICR_NAMESPACE}/dealership:latest
         imagePullPolicy: Always
@@ -26,6 +31,15 @@ spec:
         ports:
         - containerPort: 8000
           protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsUser: 1000
+          capabilities:
+            drop:
+            - ALL
+          seccompProfile:
+            type: RuntimeDefault
       restartPolicy: Always
 ---
 apiVersion: v1
