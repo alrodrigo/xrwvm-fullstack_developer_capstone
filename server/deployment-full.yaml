@@ -20,8 +20,6 @@ spec:
         run: dealership
     spec:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 1001
         fsGroup: 1001
         seccompProfile:
           type: RuntimeDefault
@@ -32,13 +30,19 @@ spec:
         ports:
         - containerPort: 27017
           protocol: TCP
+        env:
+        - name: MONGO_INITDB_DATABASE
+          value: "dealership"
         securityContext:
           allowPrivilegeEscalation: false
-          runAsNonRoot: true
-          runAsUser: 999
+          runAsNonRoot: false
           capabilities:
             drop:
             - ALL
+            add:
+            - CHOWN
+            - SETUID
+            - SETGID
           seccompProfile:
             type: RuntimeDefault
       # Node.js Backend
