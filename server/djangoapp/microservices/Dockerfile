@@ -9,8 +9,8 @@ COPY . .
 # Download NLTK data
 RUN python3 -c "import nltk; nltk.download('vader_lexicon')"
 
-# Create a non-root user
-RUN groupadd -r flaskuser && useradd -r -g flaskuser -u 1000 flaskuser
+# Create a non-root user with a unique UID
+RUN groupadd -r flaskuser && useradd -r -g flaskuser -u 1001 flaskuser
 RUN chown -R flaskuser:flaskuser /app
 
 # Switch to non-root user

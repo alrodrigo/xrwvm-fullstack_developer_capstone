@@ -15,8 +15,8 @@ COPY data/car_records.json ./data/
 
 RUN npm install
 
-# Create a non-root user
-RUN groupadd -r nodeuser && useradd -r -g nodeuser -u 1000 nodeuser
+# Create a non-root user with a unique UID
+RUN groupadd -r nodeuser && useradd -r -g nodeuser -u 1001 nodeuser
 RUN chown -R nodeuser:nodeuser /app
 
 # Switch to non-root user
